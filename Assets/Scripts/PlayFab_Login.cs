@@ -11,7 +11,7 @@ public class PlayFab_Login : MonoBehaviour
 
     #region variable
     DataManager dataManager;
-
+    DeckManager deckManager;
     private string userEmail;
     private string userPassword;
     private string username;
@@ -33,6 +33,7 @@ public class PlayFab_Login : MonoBehaviour
     public GameObject gamePanel;
     public GameObject game;
     public GameObject launchGame;
+    public GameObject canvasBooster;
 
 
     
@@ -43,6 +44,7 @@ public class PlayFab_Login : MonoBehaviour
     void Start()
     {
         dataManager = DataManager.dataManager;
+        deckManager = DeckManager.deckManager;
         PlayerPrefs.DeleteAll();
         if (string.IsNullOrEmpty(PlayFabSettings.TitleId))
         {
@@ -136,8 +138,26 @@ public class PlayFab_Login : MonoBehaviour
 
 
 
+   public void OnButtonDeckClick()
+    {
+        deckManager.DisplayCards();
+    }
 
 
+    public void OnButtonMyDeckClick()
+    {
+        deckManager.DisplayMyCards();
+    }
+
+    public void OnButtonMyBoosterClick()
+    {
+        deckManager.ObtainBooster();
+    }
+
+    public void OnButtonAchatBoosterClick()
+    {
+        canvasBooster.SetActive(true);
+    }
 
 
     private void OnLoginFailure(PlayFabError error)
@@ -199,6 +219,8 @@ public class PlayFab_Login : MonoBehaviour
         dataManager.SetRuneFragment(result.VirtualCurrency["RF"]);
         dataManager.SetIRLMonney(result.VirtualCurrency["MI"]);
         gamePanel.SetActive(true);
+        loginPanel.SetActive(false);
+        registerPanel.SetActive(false);
         Debug.Log("Monnaie Load");
         Debug.Log(dataManager.GetRuneFragment());
         Debug.Log(dataManager.GetIRLMonney());

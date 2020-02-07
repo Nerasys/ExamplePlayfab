@@ -109,31 +109,7 @@ public class DataManager : MonoBehaviour
 
 
     //requete pOUR RECUPERER LES STATS EN APPELANT ONGETSTATS
-    public void GetStats()
-    {
-        PlayFabClientAPI.GetPlayerStatistics( new GetPlayerStatisticsRequest(),OnGetStats, error => Debug.LogError(error.GenerateErrorReport())  );
-    }
-    //CHECK LE CLOUD et return la bonne valeur
-    void OnGetStats(GetPlayerStatisticsResult result)
-    {
-        Debug.Log("Received the following Statistics:");
-        foreach (var eachStat in result.Statistics)
-        {
-            //Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
-            switch (eachStat.StatisticName)
-            {
-                case "PlayerLevel":
-                    dataManager.SetPlayerLevel(eachStat.Value);
-                    break;
-              
-             
-            }
-        }
-       
-            
-      //  dataManager.AfkFarmHorsLigne();
-    }
-
+   
     //FUNCTION DE CLOUD
 
     
